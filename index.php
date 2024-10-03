@@ -1,7 +1,6 @@
 <?php
 
 $hotels = [
-
     [
         'name' => 'Hotel Belvedere',
         'description' => 'Hotel Belvedere Descrizione',
@@ -37,18 +36,7 @@ $hotels = [
         'vote' => 2,
         'distance_to_center' => 50
     ],
-
 ];
-
-// Stampa dei dati senza stile
-foreach ($hotels as $hotel) {
-    echo "Name: " . $hotel['name'] . "<br>";
-    echo "Description: " . $hotel['description'] . "<br>";
-    echo "Parking: " . ($hotel['parking'] ? 'Yes' : 'No') . "<br>";
-    echo "Vote: " . $hotel['vote'] . "<br>";
-    echo "Distance to center: " . $hotel['distance_to_center'] . " km<br>";
-    echo "<hr>";
-}
 
 ?>
 
@@ -63,7 +51,30 @@ foreach ($hotels as $hotel) {
 </head>
 
 <body>
-
+    <div class="container mt-5">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Parking</th>
+                    <th>Vote</th>
+                    <th>Distance to Center</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($hotels as $hotel): ?>
+                <tr>
+                    <td><?php echo $hotel['name']; ?></td>
+                    <td><?php echo $hotel['description']; ?></td>
+                    <td><?php echo $hotel['parking'] ? 'Yes' : 'No'; ?></td>
+                    <td><?php echo $hotel['vote']; ?></td>
+                    <td><?php echo $hotel['distance_to_center']; ?> km</td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
