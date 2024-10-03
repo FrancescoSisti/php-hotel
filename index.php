@@ -39,3 +39,32 @@ $hotels = [
     ],
 
 ];
+
+// Stampa dei dati senza stile
+foreach ($hotels as $hotel) {
+    echo "Name: " . $hotel['name'] . "<br>";
+    echo "Description: " . $hotel['description'] . "<br>";
+    echo "Parking: " . ($hotel['parking'] ? 'Yes' : 'No') . "<br>";
+    echo "Vote: " . $hotel['vote'] . "<br>";
+    echo "Distance to center: " . $hotel['distance_to_center'] . " km<br>";
+    echo "<hr>";
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
