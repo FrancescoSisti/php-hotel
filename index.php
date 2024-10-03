@@ -38,14 +38,14 @@ $hotels = [
 ];
 
 $filter_parking = isset($_GET['parking']) ? $_GET['parking'] : '';
+$filter_vote = isset($_GET['vote']) ? intval($_GET['vote']) : 0;
 
-$filtered_hotels = $hotels;
-if ($filter_parking === 'yes') {
-    $filtered_hotels = [];
-    foreach ($hotels as $hotel) {
-        if ($hotel['parking'] === true) {
-            $filtered_hotels[] = $hotel;
-        }
+$filtered_hotels = [];
+foreach ($hotels as $hotel) {
+    $parking_condition = $filter_parking !== 'yes' || $hotel['parking'] === true;
+    $vote_condition = $filter_vote === 0 || $hotel['vote'] >= $filter_vote;
+    if ($parking_condition && $vote_condition) {
+        $filtered_hotels[] = $hotel;
     }
 }
 
@@ -63,16 +63,21 @@ if ($filter_parking === 'yes') {
 
 <body>
     <div class="container mt-5">
-        <!-- Aggiunta del form per filtrare gli hotel con parcheggio -->
+        <!-- Aggiunta del form per filtrare gli hotel con parcheggio e per voto -->
         <form action="" method="GET" class="mb-4">
-            <div class="form-check">
+            <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" name="parking" value="yes" id="parkingFilter"
                     <?php echo $filter_parking === 'yes' ? 'checked' : ''; ?>>
                 <label class="form-check-label" for="parkingFilter">
                     Show only hotels with parking
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+            <div class="mb-3">
+                <label for="voteFilter" class="form-label">Minimum vote:</label>
+                <input type="number" class="form-control" id="voteFilter" name="vote" min="0" max="5"
+                    value="<?php echo $filter_vote; ?>">
+            </div>
+            <button type="submit" class="btn btn-primary">Filter</button>
         </form>
 
         <table class="table table-striped">
