@@ -37,6 +37,18 @@ $hotels = [
     ],
 ];
 
+$filter_parking = isset($_GET['parking']) ? $_GET['parking'] : '';
+
+$filtered_hotels = $hotels;
+if ($filter_parking === 'yes') {
+    $filtered_hotels = [];
+    foreach ($hotels as $hotel) {
+        if ($hotel['parking'] === true) {
+            $filtered_hotels[] = $hotel;
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +63,18 @@ $hotels = [
 
 <body>
     <div class="container mt-5">
+        <!-- Aggiunta del form per filtrare gli hotel con parcheggio -->
+        <form action="" method="GET" class="mb-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="parking" value="yes" id="parkingFilter"
+                    <?php echo $filter_parking === 'yes' ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="parkingFilter">
+                    Show only hotels with parking
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Filter</button>
+        </form>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -62,7 +86,7 @@ $hotels = [
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($hotels as $hotel): ?>
+                <?php foreach ($filtered_hotels as $hotel): ?>
                 <tr>
                     <td><?php echo $hotel['name']; ?></td>
                     <td><?php echo $hotel['description']; ?></td>
